@@ -90,3 +90,9 @@ Baseline of a continuing analysis. Key verified results so far:
 Part of the GEM-LTE project (Ada optimizer + Python pipeline). The
 manifold column (`lte_results.csv` col 4) originates from the LTE model
 calibrated in `src/gem-dlod.adb` of the parent repository.
+
+## License
+
+To the extent possible under law, this repository — code, docs, and data
+— is dedicated to the public domain (CC0 1.0; see `LICENSE`). Reuse
+without conditions; attribution welcomed, never required.
