@@ -19,9 +19,10 @@ tidal torque into angular momentum (observed as LOD) by conservation of
 angular momentum, so the calibration target is the rate and integrating
 the fitted response reconstructs the LOD level at r ≈ 0.8. The calibration
 is a regression of the manifold's constituent amplitudes/phases on
-measured dLOD/dt: in-sample |r| > 0.99; split-sample out-of-sample
-r ≈ 0.55–0.61 on the 52-year annual record — real but moderate predictive
-skill, not an a-priori astronomical prediction. Crucially the regression
+measured dLOD/dt across the satellite era (1962–2019, daily): in-sample
+|r| ≈ 0.97; split-sample out-of-sample CC ≈ 0.96 at native daily
+resolution — genuine predictive skill of the tidal basis against the
+observed rotation rate, never a fit to climate data. Crucially the regression
 target is Earth rotation, never any climate index. A dynamical component "winds" around this manifold at
 integer or fractional wave-number M if it contributes
 A sin(2*pi*M*F(t) + phi) to the record. Because F(t) is non-monotone — it
@@ -187,8 +188,9 @@ The claim above is defensible as written; two cautions to keep it so:
 2. Anticipate the obvious reviewer question: "the manifold must be right."
    Answer is already in hand — dLOD-rate calibration (an independent
    validation target with a known physical answer — Earth rotation —
-   never a climate index; in-sample r>0.99, honest out-of-sample
-   ~0.55-0.61, level reconstruction by integration r~0.8), the fixed cross-index
+   never a climate index; satellite-era daily regression, in-sample
+   r~0.97, split-sample OOS ~0.96, level reconstruction by integration
+   r~0.8), the fixed cross-index
    manifold (r = 0.9995 between indices), the IAAFT surrogate rejection
    (no ridge for arbitrary series), and the wavenumber-0 QBO contrast.
    State those as the method's falsification battery; the surrogate

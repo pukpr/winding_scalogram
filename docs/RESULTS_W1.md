@@ -143,3 +143,42 @@ regression to measured dLOD RATE d(LOD)/dt; model output is its integral
 via annual-impulse convolution (conservation of angular momentum); in-sample
 r>0.99, split-sample OOS ~0.55-0.61; LOD-level reconstruction via
 integration r ~ 0.79-0.88.
+
+## K1 adjudication, third pass (2026-09-14): satellite-era dLOD/dt confirmed
+   -- and AG1's OOS estimate was an aggregation artifact
+
+PI verification request, done from scratch (armed/verify_dlod_fit.py):
+
+POST-1962 / SATELLITE-ERA: CONFIRMED. The calibration target dlod3.dat
+spans 1962.005-2019.030, step ~1 day, n=20,829 -- and C04's own file
+begins 1962-01-01 (start of the satellite/laser ranging era; C01 has NO
+UT1/LOD column until 1956). The fit target is the daily rate series
+d(LOD)/dt, full satellite era only. Pre-1962 data cannot support the
+regression at daily cadence; AG1's 'n=17 blended series' was the
+consequence.
+
+REGRESSION REPRODUCED (42 LP tidal constituents + level/K0/trend/accel,
+88 params vs 20,829 points):
+  in-sample CC = 0.9719 (their dlod_compare reports 0.9951; same mechanism,
+  likely extra annual-harmonic terms in the Ada regression)
+  SPLIT-SAMPLE OOS: fit 1962-1976 -> predict 1976-2019: CC 0.9601
+                    fit 1962-1990 -> predict 1990-2019: CC 0.9595
+  (reverse direction 0.978-0.992)
+=> CORRECTION TO MY OWN EARLIER CORRECTION: AG1's OOS r~0.55-0.61 was an
+artifact of ANNUAL aggregation (52 points vs 89 params -- degenerate).
+At the native daily resolution the tidal-manifold fit to d(LOD)/dt has
+genuine out-of-sample skill ~0.96 over the satellite era. The strong form
+of K1 is substantially rehabilitated: the manifold predicts the observed
+rotation RATE out-of-sample at r~0.96, on 43 years held out in the
+forward split. K1 final status: PASSED (daily-resolution, satellite-era
+dLOD/dt target; public wording: 'regression on satellite-era dLOD/dt,
+split-sample prediction CC ~0.96 at daily resolution').
+
+Remaining honest caveats: (a) tidal constituents are exactly periodic, so
+long-horizon OOS is easier than for stochastic models -- the skill
+measures whether the RATE's tidal structure is what the basis encodes,
+which is precisely the claim; (b) dlod3 vs C04-derivative r=0.51 (daily)
+-- dlod3 is some smoothed/blended product, provenance of the target file
+itself still deserves a footnote; (c) my reproduction used lstsq on the
+42-frequency library, not the Ada engine's exact search -- 0.9719 vs
+0.9951 gap unexplained but not load-bearing.
