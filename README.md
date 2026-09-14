@@ -6,10 +6,13 @@ the non-autonomous alternative to EOF/PCA-style variance decomposition.
 
 A mode with winding number `M` contributes `A sin(2*pi*M*F(t) + phi)` to a
 record, where `F(t)` is the Laplace's tidal equation (LTE) forcing
-manifold: a latent tidal phase coordinate, calibrated against the measured
-Earth delta-LOD (dLOD) record before it is ever touched by climate data
-(|r| > 0.995 retained after simultaneous multi-index fine-tuning; see
-`docs/WINDING_SCALOGRAM_FEASIBILITY.md`). Because `F(t)` is strongly
+manifold: a latent tidal phase coordinate, calibrated by regression on the
+measured Earth-rotation RATE d(LOD)/dt before any climate data is touched
+(in-sample |r| > 0.99; split-sample out-of-sample ~0.55-0.61; by
+conservation of angular momentum the annual-impulse convolution integrates
+the fitted rate back to the LOD level at r ~= 0.8; see
+`docs/WINDING_SCALOGRAM_FEASIBILITY.md` and
+`docs/RESULTS_W1.md` for the campaign corrections). Because `F(t)` is strongly
 non-monotone (~160 direction reversals per century; linear-in-time
 R^2 = 0.02), calendar-frequency transforms cannot be relabeled into
 winding number: winding content is measured directly,

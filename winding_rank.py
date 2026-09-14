@@ -62,8 +62,8 @@ def ar1_floor(t, forcing, m_grid, t0_grid, sigma, n_reps=24, rho=0.97,
         z = np.zeros(n)
         for i in range(1, n):
             z[i] = rho * z[i - 1] + s * e[i]
-        Gn, _ = winding_transform(t, standardize(z), forcing, m_grid,
-                                  t0_grid, sigma)
+        Gn, _, _ = winding_transform(t, standardize(z), forcing, m_grid,
+                                     t0_grid, sigma)
         floor += np.mean(np.abs(Gn) ** 2, axis=1)
     return floor / n_reps
 
@@ -118,8 +118,8 @@ def rank_series(t, x, forcing, m_max=5.0, dm=0.01, sigma=15.0, t0_step=5.0,
     t0_grid = np.arange(t[0] + sigma / 2, t[-1] - sigma / 2 + 1e-9, t0_step)
     if len(t0_grid) < 3:
         raise SystemExit(f"record too short for sigma={sigma}yr windows")
-    G, _ = winding_transform(t, standardize(x), forcing, m_grid, t0_grid,
-                             sigma)
+    G, _, _ = winding_transform(t, standardize(x), forcing, m_grid, t0_grid,
+                                sigma)
     floor = ar1_floor(t, forcing, m_grid, t0_grid, sigma, n_reps=n_reps)
     lp = np.log2(np.maximum(np.abs(G) ** 2 / floor[:, None], 1e-9))
     prof = np.abs(G).mean(axis=1)

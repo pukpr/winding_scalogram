@@ -83,16 +83,58 @@ def uncompensate_yearly_feedback(values, ir):
     return uncompensated
 
 
-def winding_transform(t, x, forcing, m_grid, t0_grid, sigma):
-    """Returns complex G, shape (len(m_grid), len(t0_grid)), plus a boolean
+def detect_gaps(idx: str, threshold: float = 0.5):
+    """Real gaps in the underlying lte_results.csv time column (not the
+    interpolated grid load_columns produces) -- e.g. brestexcl has a
+    1944.33-1954.33 gap where no observations exist at all. Returns a list
+    of (gap_start, gap_end) in years, for any consecutive-row jump larger
+    than `threshold` years."""
+    year = np.loadtxt(ROOT / idx / "lte_results.csv", delimiter=",",
+                       usecols=(0,))
+    diffs = np.diff(year)
+    gaps = []
+    for i in np.where(diffs > threshold)[0]:
+        gaps.append((year[i], year[i + 1]))
+    return gaps
+
+
+def valid_mask_from_gaps(t, gaps):
+    """True at grid points t that fall outside every detected gap -- i.e.
+    NOT the fabricated linear-interpolation filler load_columns produces
+    across a real gap (see detect_gaps)."""
+    valid = np.ones(len(t), dtype=bool)
+    for start, end in gaps:
+        valid &= ~((t > start) & (t < end))
+    return valid
+
+
+def winding_transform(t, x, forcing, m_grid, t0_grid, sigma, valid=None):
+    """Returns complex G, shape (len(m_grid), len(t0_grid)), a boolean
     edge_mask (True where the window at that t0 sits within one sigma of
-    either end of the record — analogous to a wavelet's cone of influence)."""
+    either end of the record -- analogous to a wavelet's cone of
+    influence), and a boolean gap_mask (True where t0 itself falls inside a
+    real data gap -- e.g. brestexcl's 1944-1954 -- i.e. there is no genuine
+    sample anywhere near that window center, only fabricated
+    linear-interpolation filler; unlike edge_mask this is "no real data
+    here at all" rather than "reduced confidence," so it's blanked outright
+    rather than just hatched). `valid`: boolean array over t, True at
+    genuine (non-fabricated) samples; None means all points are genuine.
+    `valid` also excludes fabricated points from the weighted sum itself,
+    so a window straddling a gap is computed from real data only -- the
+    transform is a local, non-autonomous weighted sum, not a global
+    transform requiring uniform sampling, so this doesn't need any other
+    special handling."""
     n_m, n_t0 = len(m_grid), len(t0_grid)
     G = np.zeros((n_m, n_t0), dtype=complex)
     edge_mask = np.zeros(n_t0, dtype=bool)
+    gap_mask = np.zeros(n_t0, dtype=bool)
     t_min, t_max = t.min(), t.max()
+    if valid is None:
+        valid = np.ones(len(t), dtype=bool)
     for j, t0 in enumerate(t0_grid):
-        w = np.exp(-0.5 * ((t - t0) / sigma) ** 2)
+        nearest = np.argmin(np.abs(t - t0))
+        gap_mask[j] = not valid[nearest]
+        w = np.exp(-0.5 * ((t - t0) / sigma) ** 2) * valid
         wsum = w.sum()
         if wsum <= 0:
             continue
@@ -100,10 +142,11 @@ def winding_transform(t, x, forcing, m_grid, t0_grid, sigma):
         basis = np.exp(-1j * 2.0 * np.pi * np.outer(m_grid, forcing))
         G[:, j] = (basis @ wx) / wsum
         edge_mask[j] = (t0 - t_min < sigma) or (t_max - t0 < sigma)
-    return G, edge_mask
+    return G, edge_mask, gap_mask
 
 
-def noise_floor(year, forcing, m_grid, t0_grid, sigma, n_reps=32, seed=0):
+def noise_floor(year, forcing, m_grid, t0_grid, sigma, n_reps=32, seed=0,
+                 valid=None):
     """The winding basis exp(-i*2*pi*M*Forcing(t)) is not a clean orthogonal
     basis in M — Forcing's own recurrence structure makes some M values
     intrinsically more "resonant" than others for *any* input, independent
@@ -111,12 +154,15 @@ def noise_floor(year, forcing, m_grid, t0_grid, sigma, n_reps=32, seed=0):
     transform shows the same M-dependent ridges). This estimates that
     per-M leakage floor from matched-length white-noise surrogates, so it
     can be divided out, leaving only power that exceeds what noise alone
-    would produce at that M."""
+    would produce at that M. `valid` is threaded through so the floor is
+    estimated the same way the real transform is -- excluding fabricated
+    filler across a real data gap, if any."""
     rng = np.random.default_rng(seed)
     floor = np.zeros(len(m_grid))
     for _ in range(n_reps):
         noise = standardize(rng.standard_normal(len(year)))
-        Gn, _ = winding_transform(year, noise, forcing, m_grid, t0_grid, sigma)
+        Gn, _, _ = winding_transform(year, noise, forcing, m_grid, t0_grid,
+                                      sigma, valid=valid)
         floor += np.mean(np.abs(Gn) ** 2, axis=1)
     return floor / n_reps
 
@@ -137,7 +183,7 @@ def robust_scale(log_power):
 
 
 def plot_panel(ax, t0_grid, m_grid, log_power, edge_mask, fitted_m, title,
-               vmin, vmax, cmap="viridis"):
+               vmin, vmax, cmap="viridis", gap_mask=None):
     X, Y = np.meshgrid(t0_grid, m_grid)
     pcm = ax.pcolormesh(X, Y, log_power, shading="auto", cmap=cmap,
                          vmin=vmin, vmax=vmax)
@@ -146,6 +192,17 @@ def plot_panel(ax, t0_grid, m_grid, log_power, edge_mask, fitted_m, title,
         ax.axvspan(t0_grid[j] - (t0_grid[1] - t0_grid[0]) / 2,
                    t0_grid[j] + (t0_grid[1] - t0_grid[0]) / 2,
                    color="white", alpha=0.35, hatch="//", linewidth=0)
+
+    if gap_mask is not None:
+        # Solid (opaque) blank, distinct from edge_mask's translucent
+        # diagonal hatch -- this is a real absence of data (e.g.
+        # brestexcl's 1944-1954 gap), not just reduced-confidence
+        # near-edge coverage, so it reads as genuinely blank, not "partly
+        # trustworthy."
+        for j in np.where(gap_mask)[0]:
+            ax.axvspan(t0_grid[j] - (t0_grid[1] - t0_grid[0]) / 2,
+                       t0_grid[j] + (t0_grid[1] - t0_grid[0]) / 2,
+                       color="white", alpha=1.0, linewidth=0, zorder=5)
 
     if fitted_m is not None:
         for m in fitted_m:
@@ -181,11 +238,19 @@ def make_winding_scalogram(idx: str, m_max: float, dm: float, sigma: float,
               file=sys.stderr)
         return
 
-    G_obs, edge_mask = winding_transform(year, obs_s, forcing, m_grid,
-                                          t0_grid, sigma)
-    G_model, _ = winding_transform(year, model_s, forcing, m_grid, t0_grid,
-                                    sigma)
-    floor = noise_floor(year, forcing, m_grid, t0_grid, sigma)
+    gaps = detect_gaps(idx)
+    valid = valid_mask_from_gaps(year, gaps)
+    if gaps:
+        gap_desc = ", ".join(f"{s:.2f}-{e:.2f}" for s, e in gaps)
+        print(f"  [{idx}] excluding fabricated filler across real gap(s): "
+              f"{gap_desc}")
+
+    G_obs, edge_mask, gap_mask_obs = winding_transform(
+        year, obs_s, forcing, m_grid, t0_grid, sigma, valid=valid)
+    G_model, _, gap_mask_model = winding_transform(
+        year, model_s, forcing, m_grid, t0_grid, sigma, valid=valid)
+    gap_mask = gap_mask_obs | gap_mask_model
+    floor = noise_floor(year, forcing, m_grid, t0_grid, sigma, valid=valid)
 
     w = compute_winding(idx)
     fitted_m = np.abs(w["m"]) if w is not None else None
@@ -202,10 +267,11 @@ def make_winding_scalogram(idx: str, m_max: float, dm: float, sigma: float,
         vmin_obs, vmax_obs = robust_scale(log_power_obs)
         vmin_model, vmax_model = robust_scale(log_power_model)
         pcm1 = plot_panel(axes[0], t0_grid, m_grid, log_power_obs, edge_mask,
-                           fitted_m, title_obs, vmin_obs, vmax_obs, cmap=cmap)
+                           fitted_m, title_obs, vmin_obs, vmax_obs, cmap=cmap,
+                           gap_mask=gap_mask)
         pcm2 = plot_panel(axes[1], t0_grid, m_grid, log_power_model,
                            edge_mask, fitted_m, title_model, vmin_model,
-                           vmax_model, cmap=cmap)
+                           vmax_model, cmap=cmap, gap_mask=gap_mask)
         axes[1].set_xlabel("year (window center)")
         for pcm, ax in ((pcm1, axes[0]), (pcm2, axes[1])):
             cb = fig.colorbar(pcm, ax=ax, pad=0.01)
@@ -216,10 +282,11 @@ def make_winding_scalogram(idx: str, m_max: float, dm: float, sigma: float,
         vmin, vmax = robust_scale(np.concatenate([log_power_obs.ravel(),
                                                    log_power_model.ravel()]))
         pcm1 = plot_panel(axes[0], t0_grid, m_grid, log_power_obs, edge_mask,
-                           fitted_m, title_obs, vmin, vmax, cmap=cmap)
+                           fitted_m, title_obs, vmin, vmax, cmap=cmap,
+                           gap_mask=gap_mask)
         pcm2 = plot_panel(axes[1], t0_grid, m_grid, log_power_model,
                            edge_mask, fitted_m, title_model, vmin, vmax,
-                           cmap=cmap)
+                           cmap=cmap, gap_mask=gap_mask)
         axes[0].set_xlabel("year (window center)")
         axes[1].set_xlabel("year (window center)")
         axes[1].set_ylabel("")

@@ -13,9 +13,16 @@ the full text.
 
 Consider a scalar climate record x(t) and a known latent phase coordinate
 F(t) — the tidal forcing manifold of the Laplace's Tidal Equation (LTE)
-framework, calibrated independently against the measured length-of-day
-(dLOD) record (|r| > 0.995 retained after simultaneous multi-index
-fine-tuning). A dynamical component "winds" around this manifold at
+framework, calibrated against the measured Earth rotation RATE d(LOD)/dt:
+the annual-impulse convolution that builds the manifold integrates the
+tidal torque into angular momentum (observed as LOD) by conservation of
+angular momentum, so the calibration target is the rate and integrating
+the fitted response reconstructs the LOD level at r ≈ 0.8. The calibration
+is a regression of the manifold's constituent amplitudes/phases on
+measured dLOD/dt: in-sample |r| > 0.99; split-sample out-of-sample
+r ≈ 0.55–0.61 on the 52-year annual record — real but moderate predictive
+skill, not an a-priori astronomical prediction. Crucially the regression
+target is Earth rotation, never any climate index. A dynamical component "winds" around this manifold at
 integer or fractional wave-number M if it contributes
 A sin(2*pi*M*F(t) + phi) to the record. Because F(t) is non-monotone — it
 reverses direction hundreds of times per century of monthly sampling and
@@ -178,8 +185,10 @@ The claim above is defensible as written; two cautions to keep it so:
    EOF labels only mean something within the dataset that produced them.
 
 2. Anticipate the obvious reviewer question: "the manifold must be right."
-   Answer is already in hand — dLOD calibration (independent validation
-   target with a known astronomical answer), the fixed cross-index
+   Answer is already in hand — dLOD-rate calibration (an independent
+   validation target with a known physical answer — Earth rotation —
+   never a climate index; in-sample r>0.99, honest out-of-sample
+   ~0.55-0.61, level reconstruction by integration r~0.8), the fixed cross-index
    manifold (r = 0.9995 between indices), the IAAFT surrogate rejection
    (no ridge for arbitrary series), and the wavenumber-0 QBO contrast.
    State those as the method's falsification battery; the surrogate

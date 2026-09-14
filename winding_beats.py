@@ -51,7 +51,7 @@ M_MAX, DM, SIGMA, T0_STEP = 5.0, 0.01, 15.0, 5.0
 
 
 def compute_snr_grid(year, x, forcing, m_grid, t0_grid, sigma):
-    G, edge_mask = winding_transform(year, x, forcing, m_grid, t0_grid, sigma)
+    G, edge_mask, _ = winding_transform(year, x, forcing, m_grid, t0_grid, sigma)
     floor = noise_floor(year, forcing, m_grid, t0_grid, sigma)
     snr = np.abs(G) ** 2 / floor[:, None]
     return np.log2(np.maximum(snr, 1e-6)), edge_mask
