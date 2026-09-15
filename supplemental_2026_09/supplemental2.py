@@ -26,6 +26,19 @@ def month_grid(ts):
                      round(ts[-1] * 12) / 12 + 1e-9, 1 / 12)
 
 
+def manifold_continued(p, yl, tp):
+    """TRUE continuation: integrate F on the full 1880 -> record grid,
+    then slice to the record window (phases inherited from the
+    pre-record clockwork). Cold-start via manifold(p,yl,tp) is the
+    ablation comparison."""
+    tp_full = np.arange(1880.0, round(tp[-1] * 12) / 12 + 1, 1 / 12)
+    F_full = manifold(p, yl, tp_full)
+    k0 = int(np.argmax(tp_full >= tp[0] - 1e-9))
+    out = F_full[k0:k0 + len(tp)]
+    assert len(out) == len(tp)
+    return out
+
+
 def manifold(p, yl, tp):
     from lte_forward import tide_sum, impulse_delta, iir, bessel
     lpap = np.array(p["lpap"], float)
@@ -97,7 +110,7 @@ for k, (idx, (sig, nmax, dtr, gap)) in enumerate(CFG.items()):
     mask = np.ones(len(tp), bool)
     if gap:
         mask &= ~((tp >= gap[0]) & (tp <= gap[1]))
-    F = manifold(p, YL, tp)
+    F = manifold_continued(p, YL, tp)
     Ms = sorted({round(abs(m), 4) for m in p["ltep"] if 0.002 < abs(m) < 10}
                 | set(EXTRA.get(idx, [])))
     y = local_fit(F, tp, x, sig, Ms, nmax=nmax, mask=mask)

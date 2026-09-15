@@ -9,19 +9,25 @@ These records start **1948/1950**, not 1880 — so this pass tests the
 F(t) is integrated from 1880.0 as always (nothing re-tuned); every
 in-record winding phase is inherited from ~68–70 years of pre-record
 tidal integration. Ablation: cold-starting the IIR at the record start
-instead moves r_var by at most 0.016 (pna 0.834→0.850, noi 0.825→0.828,
-kap 0.839→0.836) — the clock is phase-coherent across the gap; the
-continuation is real but the local fit is robust either way. That is
+instead moves r_var by at most 0.019 (pna 0.834→0.834, noi 0.806→0.825,
+kap 0.828→0.839) — the clock is phase-coherent across the gap; the
+continuation is real but the local fit is robust either way. (The
+manifold *values* differ enormously, max |ΔF| ≈ 50 windings — the
+cold-start loses 70 years of accumulated turns — yet the local fit is
+invariant to a constant winding offset within each local window, and
+what carries the record is the *relative* phase structure, which the
+combinatorial tidal model regenerates identically from the same yl.
+That is
 the fingerprint behaviour again: a 77-year record cannot re-tune
 70 years of unobserved integration and still line up.
 
 | index | record | windings (lt.exe.p **+ scalogram-discovered**) | n≤ | r_raw | **r_var (detrended)** | dCC | prod r_var |
 |---|---|---|---|---|---|---|---|
-| pna | 1950–2026 | 0.2076, 0.349, 0.5451, 2.2061, 2.497 **+ 1.458, 2.976** | 6 | 0.838 | **0.834** | **0.563** | 0.649 |
-| noi | 1948–2026 | 0.2081, 0.3522, 0.5473, 2.0218, 2.502 **+ 1.878** | 6 | 0.832 | **0.825** | 0.493 | 0.623 |
-| kap10-10-20-30 | 1948–2022 | 0.0259, 0.2077 **+ 0.012, 1.116, 1.24** | 6 | 0.890 | **0.839** | 0.424 | 0.720 |
+| pna | 1950–2026 | 0.2076, 0.349, 0.5451, 2.2061, 2.497 **+ 1.458, 2.976** | 6 | 0.838 | **0.834** | **0.597** | 0.649 |
+| noi | 1948–2026 | 0.2081, 0.3522, 0.5473, 2.0218, 2.502 **+ 1.878** | 6 | 0.813 | **0.806** | 0.470 | 0.623 |
+| kap10-10-20-30 | 1948–2022 | 0.0259, 0.2077 **+ 0.012, 1.116, 1.24** | 6 | 0.883 | **0.828** | 0.391 | 0.720 |
 
-All three exceed their own production fits by +0.12 to +0.20
+All three exceed their own production fits by +0.11 to +0.21
 (detrended basis; all three carry trend nuisance — kap's is large:
 trend corr +0.547, 30% of variance — which is why r_var is the honest
 number here too).
@@ -48,21 +54,28 @@ floor, FWHM≤0.12, continuity≥0.7) passed:
   **1.116** (2.13 bits, cont 1.00) and **1.24** (2.24 bits, cont 0.75 —
   baltic's order-6 tooth, present in a Kaptal Arctic-index series).
 
-Adding the discovered ridges (with harmonics to order 6) is what takes
-these records from base-fit ~0.73–0.79 to 0.825–0.839; for kap the two
-scalogram ridges alone contribute +0.10 r_var over its lt.exe.p pair
-(0.729→0.839, ablation-documented). This is the intended loop: the
+Adding the discovered ridges (with harmonics to order 6, on the
+continued manifold) is what takes these records from base-fit
+0.730–0.787 to 0.806–0.834; for kap the discovered ridges contribute
++0.10 r_var over its lt.exe.p pair (0.730→0.828, ablation-documented).
+This is the intended loop: the
 Ada production finds windings by optimizer; the scalogram finds the
 ones the optimizer missed; both feed the same one-dial manifold.
 
 Caveats: in-sample descriptive fits (same OOS discipline as the
 supplemental-1 set — no forecast skill claimed); pna/noi extend to
 2026.3/2026.4 beyond the milestone grid, so their fits are computed on
-the extended month grid from the same continuous manifold; kap's
-n≤6 harmonic set is rich (32 regression columns on 900 samples —
-descriptive fit, not parsimonious prediction; the n≤3 figure 0.767 is
-the parsimonious number and still beats production detrended 0.720).
-The battery now stands at **23 indices** on the single dial.
+the extended month grid from the same continuous manifold; the n≤6
+harmonic sets are rich (local-regression design: 92/80/68 columns for
+pna/noi/kap against Gaussian-kernel windows of ~300 effective samples)
+— descriptive, not parsimonious prediction. The parsimonious n≤3
+figures on the continued manifold (0.757/0.728/0.766) still beat
+production detrended (0.649/0.623/0.720).
+
+Distinct indices now served by the single dial: **18** (15 battery +
+pna/noi/kap; the five supplemental-1 indices were already in the
+battery at production constants and improved here with discovered
+ridges).
 
 ---
 
@@ -84,8 +97,10 @@ figure: [`figures/supplemental_stack.png`](figures/supplemental_stack.png)
 | emi       | 0.2073, 0.4488, 0.5612       | 0.776 | 0.853 | 0.622 | **(5) nino4-relative: CONFIRMED** |
 
 All five exceed their own production fits in-sample (tna compared on
-the identical detrended basis: 0.740 vs 0.591). This extends the
-milestone battery from 15 to 20 indices, all served by one dial.
+the identical detrended basis: 0.740 vs 0.591). Note these five were
+already in the 15-index yl battery (measured at production constants,
+n≤1); here the scalogram-discovered windings + harmonics push them
+higher. Distinct indices now served by one dial: **18**.
 
 ## (1) NAO — a richer comb, quantitatively
 
