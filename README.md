@@ -43,6 +43,10 @@ dominating its spectrum by ~3x). See `docs/METHODS_BLURB.md`.
                            dial (365.2463 d) — marquee_stack.png + README +
                            reproduction scripts + parameter/data artifacts.
                            See milestone_2026_09/README.md.
+    supplemental_2026_09/  SUPPLEMENTAL: five more indices (nao, brestexcl,
+                           tna, tpi, emi) on the same dial — stack figure +
+                           harmonic-richness analysis + blackout handling.
+                           See supplemental_2026_09/README.md.
     winding_scalogram.py   plot Data/Model winding-power scalograms (the paper figure)
     winding_rank.py        automated ranked winding numbers with AR(1)-surrogate
                            significance (peak/FWHM/continuity triple test)
