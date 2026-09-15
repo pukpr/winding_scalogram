@@ -19,24 +19,60 @@ It is listed in `docs/PREREG_JOINT.md` as the campaign's negative
 control, and `docs/METHODS_BLURB.md` calls the surrogate rejection "the
 strongest single card because it shows the instrument can answer no."
 
+## The rejected exhibit, in full
+
+[`figures/rejection_board.png`](figures/rejection_board.png)
+([`../rejection_board.py`](../rejection_board.py)) shows the three
+things a fair rejection must display:
+
+- **(A) Model overlaid on the (synthetic) data — it fits beautifully.**
+  Own baltic-triple design n≤6: r=0.866. PDO's own manifold + PDO's own
+  windings n≤3 poured onto the surrogate: r=0.865 — and the same design
+  on real PDO gives only 0.814. Rejection here is not about visual fit
+  quality: the curves track. This is exactly why in-sample overlays
+  cannot convict.
+- **(B) Winding-ridge spectra** vs real PDO and the AR(1) floor: the
+  surrogate shows **no strong ridge anywhere near the claimed PDO
+  windings** — its spectrum is a smooth continuum riding its own
+  autocorrelation (left: power / floor, right: raw power). Numeric
+  verdict at M=0.4488 below: real continuity 1.00 vs surrogate 0.27.
+- **(C) Manifold vs AMO's**: rms deviation **0.8 windings**, r = 0.999 —
+  the detuned surrogate constants generate essentially the same
+  manifold as everything else. Consistent with JIGGLE_ANALYSIS.md: the
+  constants don't matter, the dial does. Which is precisely why the
+  manifold/fit route alone could not reject it and the ridge criterion
+  could.
+
 ## Test 1 — winding ridge qualification: PASSES (surrogate rejected)
 
 `winding_rank.py`, identical settings for both series (dm=0.004,
 σ=15 yr, t0=5 yr, AR(1) surrogate floor, 24 reps, thresholds SNR≥2 bits,
-FWHM≤0.12, continuity≥0.7):
+FWHM≤0.12, continuity≥0.7). Targeted band scans (window ±0.10 around
+each claimed position) are the cleanest read:
 
-| M (winding) | real PDO | surrogate |
+| series | claimed PDO band [0.35, 0.55] | baltic detune tooth [0.85, 1.05] |
 |---|---|---|
-| **0.4488** | **2.67 bits, FWHM 0.052, cont 1.00 → PASS** | 2.15 bits, FWHM 0.088, **cont 0.27 → FAIL** |
-| other ridges | 3 candidates, all fail (peak 3.07) | 4 candidates, all fail (peak 2.65) |
+| real PDO | **M=0.446: 2.77 bits, FWHM 0.052, cont 1.00 → PASS** | M=0.950: 2.09 bits, FWHM 0.088, cont 0.65 → fail |
+| surrogate | **no ridge above 2-bit SNR at all** (band-max SNR 0.27 bits at the window edge; direct continuity read at 0.4488: **0.31**) | M=0.854: 2.14 bits, FWHM 0.120, cont 0.38 → fail |
 
 At the one position the instrument claims for PDO, the real series is
 **steady in time** (ridge sits on M in 100% of windows) and the
-surrogate's is not (27%). The rejection works — but only at claimed
-positions, and note the honest asymmetry: an AR(1)-noise ridge scan run
-through the same filter passes 0–1 candidates per rep (8 reps, peak
-up to 3.57 bits), so *single* ridge passes are not rare enough to be
-conclusive on their own.
+surrogate has nothing there (27–31% at best, sub-SNR peak). The
+rejection works — but only at claimed positions, and note the honest
+asymmetry: an AR(1)-noise ridge scan run through the same filter passes
+0–1 candidates per rep (8 reps, peak up to 3.57 bits), so *single*
+ridge passes are not rare enough to be conclusive on their own.
+
+**Bonus validation (full-range scan, [0, 1.5]).** The surrogate's own
+candidate list is: **0.952 PASS (2.82 bits, FWHM 0.064, cont 0.88)** +
+1.372/1.144/0.704/0.824 all failing. The one ridge that passes sits
+exactly on the baltic order-6-adjacent tooth the surrogate was *detuned
+to imitate* (its `lt.exe.p` windings are baltic's {0.1223, 0.2076,
+0.9247}). So the ridge instrument is doubly validated here: it passes
+the tooth genuinely stamped into the synthetic data (0.952) and rejects
+the PDO-band tooth that was *not* stamped in — while the fit-r metric
+does the opposite (fits the smooth surrogate best). A rejection with a
+built-in positive control.
 
 ## Test 2 — in-sample fit r: FAILS (surrogate beats real PDO)
 
@@ -46,6 +82,7 @@ Fitting the *same* winding design to both series, one dial, σ=10:
 |---|---|---|---|
 | real PDO | PDO manifold + PDO windings, n≤3 | 0.814 | 0.254 |
 | **surrogate** | **the same PDO fit, unchanged** | **0.865** | 0.255 |
+| **surrogate** | PDO manifold + PDO windings, n≤6 | **0.904** | — |
 | surrogate | its own baltic-winding manifold, n≤6 | 0.866 | 0.265 |
 
 The surrogate fits **better than the real index**. Reason, from the

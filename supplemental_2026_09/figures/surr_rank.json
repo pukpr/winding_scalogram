@@ -1,0 +1,41 @@
+{
+ "label": "pdo_iaaft_detuned_surrogate",
+ "n_windows": 26,
+ "ridges": [
+  {
+   "M": 0.952,
+   "peak_bits": 2.82,
+   "fwhm_M": 0.064,
+   "continuity": 0.88,
+   "pass": true
+  },
+  {
+   "M": 1.372,
+   "peak_bits": 2.69,
+   "fwhm_M": 0.08,
+   "continuity": 0.54,
+   "pass": false
+  },
+  {
+   "M": 1.144,
+   "peak_bits": 2.59,
+   "fwhm_M": 0.052,
+   "continuity": 0.65,
+   "pass": false
+  },
+  {
+   "M": 0.704,
+   "peak_bits": 2.34,
+   "fwhm_M": 0.14,
+   "continuity": 0.31,
+   "pass": false
+  },
+  {
+   "M": 0.824,
+   "peak_bits": 2.13,
+   "fwhm_M": 0.06,
+   "continuity": 0.27,
+   "pass": false
+  }
+ ]
+}

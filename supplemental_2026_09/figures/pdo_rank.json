@@ -1,0 +1,34 @@
+{
+ "label": "pdo",
+ "n_windows": 26,
+ "ridges": [
+  {
+   "M": 1.088,
+   "peak_bits": 3.07,
+   "fwhm_M": 0.148,
+   "continuity": 0.38,
+   "pass": false
+  },
+  {
+   "M": 0.448,
+   "peak_bits": 2.67,
+   "fwhm_M": 0.052,
+   "continuity": 1.0,
+   "pass": true
+  },
+  {
+   "M": 0.06,
+   "peak_bits": 2.34,
+   "fwhm_M": 0.092,
+   "continuity": 0.42,
+   "pass": false
+  },
+  {
+   "M": 0.948,
+   "peak_bits": 2.16,
+   "fwhm_M": 0.06,
+   "continuity": 0.65,
+   "pass": false
+  }
+ ]
+}
