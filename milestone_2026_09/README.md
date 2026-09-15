@@ -52,6 +52,46 @@ The sensitivity is knife-edge and it is a fingerprint, not a nuisance:
   at 365.25059–365.25060 — agreement across six separate optimizer
   searches to **3×10⁻⁶ days**.
 
+## The manifolds themselves overlay
+
+`figures/manifold_overlay.png` (reproduce: `python3 manifold_overlay.py`
+at repo root): all 13 index manifolds used by the milestone +
+supplemental fits — each built from that index's OWN jiggled
+`lt.exe.p` constants, all on the shared dial — plotted together.
+
+- **12/13 overlay precisely**: r(F_i, mean F) > 0.9976 for all twelve,
+  pairwise rms |ΔF| max 1.79 windings (median 0.96) on a signal that
+  sweeps ~60 windings over 146 years; each jiggle stays within
+  ±3.3 windings of the mean across the whole record. The captures were
+  "primarily common" — the manifolds show it directly: the optimizer,
+  given 12 unrelated climate records and free rein over ~20 constants,
+  converged 12 times onto essentially ONE manifold.
+- **kap10-10-20-30 is the exception** (r=0.944, rms dev 6.2): its R
+  (IIR output) drifts from the common one at −0.015 windings/yr
+  (−2.2 over the record) — a smooth drift, no jumps; the FM warp is
+  non-monotone in R (impA=−3.29 with k≈0.2077), so a small R offset
+  gets amplified into ±15-winding deviations near FM fold points.
+
+## The jiggle is (almost) unnecessary — ONE manifold suffices
+
+Refit every index on **amo's own manifold** (no jiggle at all), same
+windings/σ/harmonics per index (same block, same detrend rules;
+continued slicing for the short records): **9 of the other 12 fit
+BETTER** on the common F (pdo +0.004, nino4 +0.006, baltic +0.002,
+nao +0.020, tna +0.013, emi +0.029, pna +0.019, noi +0.050, kap
++0.024), 2 neutral (brestexcl −0.002, tpi −0.001), and **only iode
+actually earns its jiggle** (+0.034 own over common). Mean |Δr| over
+the 12 non-amo indices =
+0.017. The per-index jiggled constants
+therefore carry almost no information beyond the shared manifold —
+the jiggles were mild overfitting by the optimizer, with one
+exception: iode (the weakly-captured trend series) benefits slightly.
+The 0.85-0.87 captures on a SINGLE un-jiggled F are the headline:
+one manifold, 13 indices, one dial. Windings remain index-specific —
+that is the per-index degree of freedom the scheme genuinely needs.
+(table: supplemental_2026_09/figures/manifold_jiggle_test.json;
+printed by manifold_overlay.py)
+
 ## Honest limits (pre-registered, not after-the-fact)
 
 - **Descriptive, not predictive.** Train/holdout split (baltic,
