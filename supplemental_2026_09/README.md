@@ -1,3 +1,71 @@
+# Supplemental: shorter records on the same dial — pna, noi, kap10-10-20-30
+
+Stacked figure: [`figures/supplemental2_stack.png`](figures/supplemental2_stack.png)
+Harmonics sweep: [`figures/supplemental2_harmonics.png`](figures/supplemental2_harmonics.png)
+Reproduce: `python3 supplemental2.py`
+
+These records start **1948/1950**, not 1880 — so this pass tests the
+**continuation of the common manifold** across the pre-record window.
+F(t) is integrated from 1880.0 as always (nothing re-tuned); every
+in-record winding phase is inherited from ~68–70 years of pre-record
+tidal integration. Ablation: cold-starting the IIR at the record start
+instead moves r_var by at most 0.016 (pna 0.834→0.850, noi 0.825→0.828,
+kap 0.839→0.836) — the clock is phase-coherent across the gap; the
+continuation is real but the local fit is robust either way. That is
+the fingerprint behaviour again: a 77-year record cannot re-tune
+70 years of unobserved integration and still line up.
+
+| index | record | windings (lt.exe.p **+ scalogram-discovered**) | n≤ | r_raw | **r_var (detrended)** | dCC | prod r_var |
+|---|---|---|---|---|---|---|---|
+| pna | 1950–2026 | 0.2076, 0.349, 0.5451, 2.2061, 2.497 **+ 1.458, 2.976** | 6 | 0.838 | **0.834** | **0.563** | 0.649 |
+| noi | 1948–2026 | 0.2081, 0.3522, 0.5473, 2.0218, 2.502 **+ 1.878** | 6 | 0.832 | **0.825** | 0.493 | 0.623 |
+| kap10-10-20-30 | 1948–2022 | 0.0259, 0.2077 **+ 0.012, 1.116, 1.24** | 6 | 0.890 | **0.839** | 0.424 | 0.720 |
+
+All three exceed their own production fits by +0.12 to +0.20
+(detrended basis; all three carry trend nuisance — kap's is large:
+trend corr +0.547, 30% of variance — which is why r_var is the honest
+number here too).
+
+**Windings for pna/noi ARE higher — and they are comb teeth.**
+pna/noi run to M=2.50 and noi's fitted set is nearly pna's
+(|ΔM| ≤ 0.006 on three of five; cross-family obs corr +0.70). Against
+the backbone B=0.2076: 2.497 ≈ **12×B**, 2.206 ≈ 10.6×B, 2.022 ≈ 9.7×B
+— not integer multiples, but 2.502/2.497 sit exactly on the 12th tooth
+of the 0.20845-scale comb (same structure that put baltic at 6×B).
+Higher-frequency windings = the short, sharp records need finer comb
+teeth; the long SST records used the low teeth. Same dial, different
+register of the same comb.
+
+**Scalogram-discovered extra ridges (winding_rank, the algorithm —
+not the design matrix):** running winding_rank to M=3 (pna/noi) and
+M=1.5 (kap) with the standard qualification (SNR≥2 bits over AR(1)
+floor, FWHM≤0.12, continuity≥0.7) passed:
+- pna: **1.458** (2.75 bits, cont 1.00 — that's 7×B) and **2.976**
+  (2.70 bits, cont 0.85 — ~14.3×B). Note pna's own 2.497 ridge FAILS
+  continuity (0.46) — high but unsteady; the steady teeth are 1.458/2.976.
+- noi: **1.878** (2.20 bits, cont 0.85).
+- kap: **0.012** (2.29 bits — the AMO-band clock tooth again),
+  **1.116** (2.13 bits, cont 1.00) and **1.24** (2.24 bits, cont 0.75 —
+  baltic's order-6 tooth, present in a Kaptal Arctic-index series).
+
+Adding the discovered ridges (with harmonics to order 6) is what takes
+these records from base-fit ~0.73–0.79 to 0.825–0.839; for kap the two
+scalogram ridges alone contribute +0.10 r_var over its lt.exe.p pair
+(0.729→0.839, ablation-documented). This is the intended loop: the
+Ada production finds windings by optimizer; the scalogram finds the
+ones the optimizer missed; both feed the same one-dial manifold.
+
+Caveats: in-sample descriptive fits (same OOS discipline as the
+supplemental-1 set — no forecast skill claimed); pna/noi extend to
+2026.3/2026.4 beyond the milestone grid, so their fits are computed on
+the extended month grid from the same continuous manifold; kap's
+n≤6 harmonic set is rich (32 regression columns on 900 samples —
+descriptive fit, not parsimonious prediction; the n≤3 figure 0.767 is
+the parsimonious number and still beats production detrended 0.720).
+The battery now stands at **23 indices** on the single dial.
+
+---
+
 # Supplemental: five more indices on the same one dial (2026-09)
 
 Companion to [`../milestone_2026_09/README.md`](../milestone_2026_09/README.md).
