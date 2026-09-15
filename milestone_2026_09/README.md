@@ -101,6 +101,17 @@ printed by manifold_overlay.py)
 
 ## Honest limits (pre-registered, not after-the-fact)
 
+- **In-sample r is NOT evidence of locking.** Superseding update of
+  2026-09-15: the pre-registered negative control
+  `pdo_iaaft_detuned_surrogate` fits at r=0.865 — ABOVE real PDO
+  (0.814) on the identical design — and the full red-noise floor
+  battery (`red_noise_floor.py`,
+  [`../supplemental_2026_09/REJECTION.md`](../supplemental_2026_09/REJECTION.md))
+  shows AR(1)-matched noise scores in the same range on every index's
+  own design. Only two statistics reject the null: ridge continuity at
+  claimed positions, and phase-randomised rejection of the calendar-
+  locked slow tooth (amo, nino4 only). The r values below and in the
+  marquee stand as descriptive fits, not supporting evidence.
 - **Descriptive, not predictive.** Train/holdout split (baltic,
   train < 1955): holdout r = −0.01…−0.08. Causal walk-forward with any
   nonzero margin collapses (AMO: 0.867 at margin 0 → 0.009 at 0.1 yr;
