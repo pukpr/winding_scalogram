@@ -190,7 +190,7 @@ manifold + `lt.exe.p` windings + σ=10, n≤3/n≤6):
 
 | index | real r (n≤3) | flat z | a1 z | a2 z | AR1 z |
 |---|---|---|---|---|---|
-| pdo | 0.814 | −0.2 | +22.6 | +77 | −2.6 |
+| pdo | 0.814 | +0.4 | +22.6 | +77 | −2.6 |
 | amo | 0.846 | +0.3 | +68 | +217 | +1.5 |
 | baltic | 0.797 | +1.1 | +16 | +72 | −3.1 |
 | nino4 | 0.842 | +3.3 | +24 | +85 | −3.9 |
@@ -200,7 +200,7 @@ Reading (figure: `figures/sharp_ladder.png`, JSON:
 `figures/sharp_battery_v2.json`):
 
 - **Against a same-spectrum, random-phase null, in-sample r is worth
-  ~nothing** (z = −0.2…+3.3): the regression earns its r from the
+  ~nothing** (z = +0.3…+3.3): the regression earns its r from the
   target's *spectral shape*, not from locking. The nino4 +3.3 is the
   only index poking above 2 — consistent with the calendar-tooth
   survivor in Test 3.
