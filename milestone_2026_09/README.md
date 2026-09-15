@@ -81,8 +81,7 @@ BETTER** on the common F (pdo +0.004, nino4 +0.006, baltic +0.002,
 nao +0.020, tna +0.013, emi +0.029, pna +0.019, noi +0.050, kap
 +0.024), 2 neutral (brestexcl −0.002, tpi −0.001), and **only iode
 actually earns its jiggle** (+0.034 own over common). Mean |Δr| over
-the 12 non-amo indices =
-0.017. The per-index jiggled constants
+the 12 non-amo indices = 0.017. The per-index jiggled constants
 therefore carry almost no information beyond the shared manifold —
 the jiggles were mild overfitting by the optimizer, with one
 exception: iode (the weakly-captured trend series) benefits slightly.
