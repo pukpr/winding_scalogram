@@ -74,6 +74,14 @@ supplemental fits — each built from that index's OWN jiggled
 
 ## The jiggle is (almost) unnecessary — ONE manifold suffices
 
+Full write-up with the physical jitter accounting:
+**[`JIGGLE_ANALYSIS.md`](JIGGLE_ANALYSIS.md)** — the modeling-
+convenience explanation (tidal-factor jitter gives the random-descent
+optimizer mobility to escape local minima, per
+`gem-random_descent.adb`: "explore parameter space and escape local
+minima … probabilistic perturbations"), and the evidence that the
+amount of jitter added was inconsequential.
+
 Refit every index on **amo's own manifold** (no jiggle at all), same
 windings/σ/harmonics per index (same block, same detrend rules;
 continued slicing for the short records): **9 of the other 12 fit
