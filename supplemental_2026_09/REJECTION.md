@@ -155,3 +155,67 @@ own headline statistics.** Recorded consequences:
    validation + ridge continuity, **not** the capture correlations.
 
 The surrogate did its job. Keep it in the battery permanently.
+
+## The sharpness ladder (v2): nulls that can't coast on smoothness
+
+The AR(1) floor raised a design question: an AR(1) with matched ρ₁ is
+actually *smoother* than real climate at the 1–5 yr band (its spectrum
+has no knee where the real one drops), so "r < AR1 floor" can mean the
+null is too sharp OR too soft. To settle it we need a ladder, not a
+rung. `sharp_surrogates.py` builds one from the target's OWN spectrum:
+
+1. amplitude spectrum A(f) of the real (detrended) monthly target,
+   tilted `A(f) *= (f/f_ref)^alpha` — alpha=0 keeps the old IAAFT flat
+   spectrum; alpha=+1/+2 drain the low-frequency power that inflates CC;
+2. random phase per member (a phase-randomized null deliberately —
+   locking means phase structure, and these must not fake it);
+3. 20 IAAFT passes so final spectrum ≈ tilted target and the marginal
+   shape = the real samples;
+4. AR1(ρ=real ρ₁) as the "single-parameter" comparator rung.
+
+Measured sharpness (curvature = var(Δ²x)/var(x), the wiggle-energy
+count that fit-band inflation is all about):
+
+| rung | ρ₁ | curvature |
+|---|---|---|
+| real pdo | 0.967 | 0.039 |
+| flat (α=0) | 0.967 | 0.040 (by construction) |
+| a1 (α=+1) | 0.687 | 0.73 |
+| a2 (α=+2) | 0.370 | 2.25 |
+| AR1@ρ_pdo | 0.973 | 0.11 |
+
+**Fit battery** (`sharp_fit_battery2.py`, 8 seeds/rung, ladder rebuilt
+from each index's own detrended target, design = shipped
+manifold + `lt.exe.p` windings + σ=10, n≤3/n≤6):
+
+| index | real r (n≤3) | flat z | a1 z | a2 z | AR1 z |
+|---|---|---|---|---|---|
+| pdo | 0.814 | −0.2 | +22.6 | +77 | −2.6 |
+| amo | 0.846 | +0.3 | +68 | +217 | +1.5 |
+| baltic | 0.797 | +1.1 | +16 | +72 | −3.1 |
+| nino4 | 0.842 | +3.3 | +24 | +85 | −3.9 |
+| iode (detrended) | 0.728 | +0.4 | +20 | +70 | −5.7 |
+
+Reading (figure: `figures/sharp_ladder.png`, JSON:
+`figures/sharp_battery_v2.json`):
+
+- **Against a same-spectrum, random-phase null, in-sample r is worth
+  ~nothing** (z = −0.2…+3.3): the regression earns its r from the
+  target's *spectral shape*, not from locking. The nino4 +3.3 is the
+  only index poking above 2 — consistent with the calendar-tooth
+  survivor in Test 3.
+- **Against the sharp rungs every index is massively significant**
+  (z = +16…+217 at n≤3). The fits genuinely know something these
+  targets lack.
+- **The AR1 floor is the WRONG shape of null**: ρ₁-matched AR1 is
+  *smoother at fitting-relevant bands* (curvature 0.11 vs 0.039: AR1
+  piles up power at 1–5 yr where the real spectrum has already broken),
+  which is why real captures score z<0 against it. "Beat AR1" was never
+  the right bar; the right bar is a spectrum-matched null, and then a
+  sharpness ladder to show *which* band of variance is doing the work.
+- Practical rule going forward: **a capture's honest r is
+  r_real − r_flat(α=0, same design)**, and the a1/a2 z's are the
+  locking evidence. This retires the AR1 floor as the primary gate
+  (it survives only as a convenience screen) and makes the flat IAAFT
+  rung the headline null for C1.
+
