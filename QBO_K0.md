@@ -71,6 +71,62 @@ QBO is a downward-propagating shear phase (multi-level, 30 hPa here), which
 a single standing-wave amplitude cannot represent; the production lt.exe.p
 answers it with ltep = −0.1105 and harmonics {4,9,21,17,14,28}.
 
+## The 2015-16 "disruption" — predicted, not accommodated
+
+The literature's prime anomaly (Newman et al. 2016 GRL; Osprey et al. 2016;
+"the only event of its kind seen since regular observation began" —
+Solomon et al. 2017): at 30 hPa the westerly that "should" have reappeared
+was delayed/interrupted — an easterly burst inside the westerly epoch
+(our record: W from 2015.42, one-month E interruption 2016.25-2016.33 (matches the literature's March-April 2016 easterly burst; this dataset's W onset 2015.42 is ~2 mo earlier than NOAA-merge onset — weatherstation averaging)).
+
+**Frozen-manifold CV (train <= 2014.99 only, design k in {0.42, 0.68},
+n<=3, F deterministic from astronomy+calendar):**
+
+| quantity | value |
+|---|---|
+| forecast r 2015-2018 | **0.825** (in-sample pre-2015: 0.450) |
+| sign agreement 2015-2018 | 89% |
+| W onset predicted | **2015.42** — observed 2015.42 (exact, month grid) |
+| E interruption predicted | **2016.17-2016.42** — observed 2016.25-2016.33 (brackets it) |
+| W epoch end predicted | 2017.42 — observed 2017.42 (exact) |
+| plain 2.369-yr sine, same cut | onset 2015.83 (5 mo late), NO interruption, r=0.625 |
+| robustness | cutoffs 2012/2013/2014 all still predict an E dip inside the W epoch (r 0.78-0.83) |
+| residual check | 2016-centred rms 1.03 vs record median 0.90 — the anomaly is NOT a residual outlier; the manifold ALLOWS it |
+| pure random-phase null | clone self-forecasts r = +0.016 +- 0.340 -> real 0.825 is z ~ +2.4 |
+
+The mechanism is visible in the phase sequence: the model's W epoch
+(2015.42-2016.17) is broken by the interference node of the 0.42 alias
+carrier against the 0.68 comb sideband (0.68-0.42 = 0.26 ~ Mt alias; beat
+period ~3.8 yr puts a node right at 2016.2). A single sine cannot make a
+node; two comb-locked sidebands must. The "unprecedented" event is a
+*scheduled* one in the manifold picture — unprecedented only against
+calendar-clock periodicity.
+
+**Methodological discovery while checking this (affects ALL flat rungs):**
+our IAAFT rank-matching step (30 iterations) **re-pins the phase of the
+strongest spectral line to the target's own** (post-rank, every seed shows
+line phase +1.7 +- 0.05 and corr(clone, real) ~ -0.10 identical across
+seeds; pure random phase varies seed to seed). Consequences, both benign:
+(i) flat-rung floors are *conservative* for the honest-r rule (the null
+gets the dominant line's phase for free — a gift no true random-phase
+process would get, which is why pdo/amo flat rungs reached r ~ 0.8);
+(ii) the clone-vs-REAL forecast cross-score (+0.602) is an artifact of
+that pinning and must not be used — pure-RP is the right forecast null.
+The ridge-specificity flat rungs quoted above ("0.42 = spectrum")
+therefore understate specificity: with fully random phase (median-normalized
+same-basis check), pure-RP continuity at 0.68 is 0.48 +- 0.20 vs real 0.84
+(100th percentile), and at 0.42 it is 0.68 +- 0.18 vs real 1.00 (90th).
+
+**TEST2 bonus — the 0.68 tooth is a slow chirp, not a fixed line:** per-window
+(8-yr) local ridge on 0.30-1.10 slides 0.620 (2004) -> 0.670 (2012),
+~0.006/yr, consistent in sign and scale with the documented 22-34-month
+wander of the QBO period and the 18.6-yr nodal modulation of declination
+amplitude (N-D = 18.60 yr is in the family lattice). The node drift is what
+lets the comb schedule interruptions at different calendar dates each cycle.
+
+Board: `supplemental_2026_09/figures/qbo2016_forecast.png` (overlay +
+residuals + forecast-skill bars incl. both null flavours).
+
 ## Level replication (qbo50) — the sharp test, and it splits
 
 corr(qbo30, qbo50) peaks at a **+4-month lag (0.808)** — the textbook

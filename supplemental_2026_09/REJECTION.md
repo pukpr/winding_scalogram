@@ -218,6 +218,16 @@ Reading (figure: `figures/sharp_ladder.png`, JSON:
   locking evidence. This retires the AR1 floor as the primary gate
   (it survives only as a convenience screen) and makes the flat IAAFT
   rung the headline null for C1.
+- NOTE (2026-09-16, found during the QBO 2015/16 forecast check): the
+  IAAFT rank-matching step **re-pins the dominant spectral line's phase
+  to the target's own** (post-rank, seeds share line phase to ±0.05 rad
+  and corr(clone, real) ≈ −0.10 identically; without rank, phases vary
+  freely). Consequence for the rule above: flat-rung floors are
+  CONSERVATIVE — the null is gifted the strongest line's phase, which no
+  true random-phase process gets — so honest r = r_real − r_flat remains
+  a safe lower bound on locking. For FORECAST-style tests (no re-fit to
+  the same target), pure random-phase must be used instead; see
+  QBO_K0.md.
 
 ## The spectrum-exact sharp synthesis, 1880–2025 (the user's test)
 
