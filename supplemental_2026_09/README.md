@@ -191,3 +191,34 @@ dLOD-consistent, not dLOD-derived; r values here are n≤3 for
 comparability with the marquee — n≤6 numbers are shown only as the
 ridge-richness diagnostic (point 1), where all five indices improve and
 nao improves most.
+
+## QBO — the wavenumber=0 parallel category
+
+Stacked figure: [`figures/qbo_stack.png`](figures/qbo_stack.png)
+(stats: `figures/qbo_stack_stats.json`; script `qbo_stack.py`; full
+analysis in repo-root `QBO_K0.md`).
+
+| index | r | dCC | flat rung (IAAFT x20) | honest r | production r |
+|---|---|---|---|---|---|
+| qbo30 | 0.766 | 0.357 | 0.823±0.001 | −0.057 | 0.818 |
+| qbo50 | 0.626 | 0.321 | 0.809±0.002 | −0.183 | 0.813 |
+
+House-style stack (grey obs + coloured fit, marquee local_fit machinery),
+but the forcing is the **draconic ecliptic family only** — production
+lpap rows in [26.9,27.7] ∪ [13.5,13.9] d, dominated by N = 27.2122 d
+(amp −3.32) — through the annual comb and IIR at the shared dial
+365.2463. No dLOD backbone, no Bessel FM: QBO is a zonal (k=0) index, the
+parallel category to the wavenumber>0 ocean marquee. Windings {0.42, 0.68}
+are the scalogram ridge teeth (cont = 1.00), not optimizer output.
+
+Read the honest column as designed: it says the **in-sample amplitude
+capture is texture** (the adaptive local fit rides the target's own
+2.37-yr line; flat clones score equally). What is NOT texture and lives in
+QBO_K0.md instead: (i) the no-parameter alias prediction
+frac(365.2463/27.2122) c/yr = 1/2.369 yr == the observed 2.38-yr line at
+BOTH levels; (ii) the frozen-CV forecast of the 2015-16 "disruption" (W
+onset 2015.42 exact, easterly dip bracketing the observed interruption,
+forecast r = 0.825 where a plain sine gives 0.625 and pure-random-phase
+nulls 0.02±0.34); (iii) the 0.68 comb-sideband ridge specific to qbo30
+against its flat rung. Per campaign rule, bare capture r is never offered
+as evidence anywhere, QBO included.
