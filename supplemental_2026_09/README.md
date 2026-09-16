@@ -198,10 +198,18 @@ Stacked figure: [`figures/qbo_stack.png`](figures/qbo_stack.png)
 (stats: `figures/qbo_stack_stats.json`; script `qbo_stack.py`; full
 analysis in repo-root `QBO_K0.md`).
 
-| index | r | dCC | flat rung (IAAFT x20) | honest r | production r |
+| index | r_own (own teeth) | r_k0 (shared teeth) | dCC | honest r_own | production r |
 |---|---|---|---|---|---|
-| qbo30 | 0.766 | 0.357 | 0.823±0.001 | −0.057 | 0.818 |
-| qbo50 | 0.626 | 0.321 | 0.809±0.002 | −0.183 | 0.813 |
+| qbo30 | 0.809 {0.48,1.87,3.06} | 0.766 {0.42,0.68} | 0.364 | −0.031 | 0.818 |
+| qbo50 | 0.835 {0.49,0.71,2.04,2.44,2.79} | 0.626 {0.42,0.68} | 0.400 | −0.023 | 0.813 |
+
+Stack v2 (reconciliation update): each panel shows the level's OWN
+scalogram-comb fit (solid; teeth = winding_rank cont>=0.5 ridges on the
+production manifold) and the shared k=0 lattice fit (dashed; draconic
+manifold, teeth {0.42,0.68}). qbo50's own comb 2.04-2.79 = harmonics
+18-25 of |ltep| = 0.1115 — matching production harm{18,25} — which
+reconciles the earlier deficit as imposed teeth, not weak physics
+(QBO_K0.md, "Reconciling qbo50").
 
 House-style stack (grey obs + coloured fit, marquee local_fit machinery),
 but the forcing is the **draconic ecliptic family only** — production
