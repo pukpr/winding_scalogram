@@ -1,0 +1,9 @@
+{
+ "r_real": 0.4323,
+ "dCC_real": 0.1799,
+ "flat_mean": 0.3483,
+ "flat_std": 0.0015,
+ "honest_r": 0.084,
+ "z": 57.64,
+ "dCC_flat_mean": 0.097
+}
