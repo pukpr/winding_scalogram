@@ -127,6 +127,50 @@ lets the comb schedule interruptions at different calendar dates each cycle.
 Board: `supplemental_2026_09/figures/qbo2016_forecast.png` (overlay +
 residuals + forecast-skill bars incl. both null flavours).
 
+## Reconciling qbo50: the Ada production fit and the level-specific comb
+
+The stack's qbo50 deficit (r 0.626, honest −0.183) is a **teeth mismatch,
+not weak physics**. `winding_rank --index qbo50` (production col4
+manifold, 12 windows) shows the ridge structure the Ada fit already
+knew about:
+
+| ridge | bits | cont | relation |
+|---|---|---|---|
+| 2.79 | 4.38 | 0.92 | **= 25 × |ltep| = 25×0.1115 = 2.7875** (0.1% match) |
+| 2.04 | 2.71 | 1.00 | ~18 × 0.1115 = 2.007 |
+| 2.67 / 2.91 / 2.44 | 3.0 / 2.9 / 3.0 | — | 24b / 26b / 22b — a **harmonic comb** of the qbo50 backbone |
+| 0.71 | 2.82 | 1.00 | 0.49 + 0.22 = +2b sideband |
+| 0.49 | 2.09 | 1.00 | the draconic alias tooth (≈0.48 on this manifold, qbo30 has 0.48 too) |
+
+qbo50's production `harm = {8,13,18,17,3,25,27,7}` — **the optimizer's own
+n=18 and n=25 harmonic choices are exactly the phase-coherent scalogram
+teeth**. The winding instrument independently confirms, by continuity
+(0.92–1.00), the harmonics that earn Ada's r=0.813: same order-of-comb
+structure as baltic's 1.2454 = 6×0.2076, but at high orders 18–26 of the
+weaker 0.1115 backbone.
+
+Fit battery (local design, marquee machinery, 12 IAAFT clones):
+
+| manifold + teeth | qbo30 honest | qbo50 honest |
+|---|---|---|
+| prod manifold, OWN teeth | −0.030 (r 0.809) | **−0.013 (r 0.866)** |
+| prod manifold, k=0 {0.42,0.68} | −0.068 | −0.112 |
+| draconic manifold, k=0 | −0.058 | −0.183 |
+
+On its own lattice qbo50 fits **better** than qbo30 does (0.866 vs 0.809,
+dCC 0.459 vs 0.364) — the stack's purple number came from imposing
+qbo30's alias teeth {0.42,0.68} on a level whose coherence sits in the
+2.0–2.9 comb. The k=0 draconic manifold is shared (corr 0.9972 between
+levels' col4) — it is the **response teeth** that are level-specific.
+Frozen-CV train<2015 with own teeth on qbo50: forecast r = **+0.673**
+(pure-RP null −0.04±0.22, z≈+3); model W onset 2015.5 / E break 2016.17
+vs observed 2015.58 / 2016.25 — the disruption is predicted at BOTH
+levels on their own combs. The descent-lag variant only partially helps
+(−4-month shift: honest −0.183→−0.123): descent reorganizes which
+harmonics are coherent, not just the phase of the same one — answering
+the open "descent-lag qbo50" next-step: the fix is the level's own comb,
+not a calendar shift.
+
 ## Level replication (qbo50) — the sharp test, and it splits
 
 corr(qbo30, qbo50) peaks at a **+4-month lag (0.808)** — the textbook
