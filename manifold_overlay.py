@@ -18,7 +18,7 @@ from lte_forward import tide_sum, impulse_delta, iir, bessel
 YL = 365.2463
 IDX = ["amo", "pdo", "nino4", "iode", "baltic",            # milestone
        "nao", "brestexcl", "tna", "tpi", "emi",            # supplemental-1
-       "pna", "noi", "kap10-10-20-30"]                     # supplemental-2
+       "pna", "noi"] #, "kap10-10-20-30"]                     # supplemental-2
 PK = ("offs", "bg", "impA", "impB", "delA", "delB", "asym", "ma", "mp",
       "init", "shfT")
 
