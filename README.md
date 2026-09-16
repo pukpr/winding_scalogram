@@ -73,7 +73,11 @@ dominating its spectrum by ~3x). See `docs/METHODS_BLURB.md`.
                            live Ada source and numerics: what verifies,
                            what is ansatz, and how much of the 1/w^2
                            parcel-compliance prediction the production
-                           manifold actually embeds)
+                           manifold actually embeds),
+                           AMO_SHALLOW_WATER.md (AMO forcing pipeline —
+                           tide table, impulse sampler, leaky IIR, Bessel
+                           FM — plus the moving-gauge formulation with
+                           exact identity check and AMO-manifold census)
 
 Indices: nino4, nino34, pdo, amo, tna, nao, iode, emi, npi, pna, noi, tpi
 (SST/pressure anomaly indices), baltic + darwin1880 (PSMSL sea-level
