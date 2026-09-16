@@ -77,7 +77,10 @@ dominating its spectrum by ~3x). See `docs/METHODS_BLURB.md`.
                            AMO_SHALLOW_WATER.md (AMO forcing pipeline —
                            tide table, impulse sampler, leaky IIR, Bessel
                            FM — plus the moving-gauge formulation with
-                           exact identity check and AMO-manifold census)
+                           exact identity check and AMO-manifold census),
+                           QBO_FORMULATION.md (the wavenumber=0 case:
+                           draconic-alias forcing, moving gauge for a
+                           descending phase, dated beat-node forecasts)
 
 Indices: nino4, nino34, pdo, amo, tna, nao, iode, emi, npi, pna, noi, tpi
 (SST/pressure anomaly indices), baltic + darwin1880 (PSMSL sea-level
