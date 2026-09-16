@@ -66,7 +66,14 @@ dominating its spectrum by ~3x). See `docs/METHODS_BLURB.md`.
                            lt.exe.resp (config), winding_scalogram.png
     docs/                  WINDING_NARRATIVE.md (7-index findings),
                            WINDING_SCALOGRAM_FEASIBILITY.md (17-index ridge survey,
-                           qualifications, controls), METHODS_BLURB.md
+                           qualifications, controls), METHODS_BLURB.md,
+                           DERIVATION_AUDIT.md (independent audit of the
+                           sin(k.M(t)) Chap.12 derivation chain — ChatGPT
+                           two-layer route + Claude artifact — against the
+                           live Ada source and numerics: what verifies,
+                           what is ansatz, and how much of the 1/w^2
+                           parcel-compliance prediction the production
+                           manifold actually embeds)
 
 Indices: nino4, nino34, pdo, amo, tna, nao, iode, emi, npi, pna, noi, tpi
 (SST/pressure anomaly indices), baltic + darwin1880 (PSMSL sea-level
