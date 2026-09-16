@@ -219,3 +219,62 @@ Reading (figure: `figures/sharp_ladder.png`, JSON:
   (it survives only as a convenience screen) and makes the flat IAAFT
   rung the headline null for C1.
 
+## The spectrum-exact sharp synthesis, 1880–2025 (the user's test)
+
+Question: synthesize a monthly series spanning 1880–2025 with **the
+same spectral spread** as the soft surrogate but **nowhere near as
+smooth**, then fit it through the manifold and run the winding-ridge
+analysis. Recipe (`sharp2025.py`): take the amplitude spectrum of real
+monthly PDO (IAAFT conserves it — the soft surrogate has it too),
+interpolate to the new 1752-point grid, random phase, 20 IAAFT passes
+to the full pdo marginal. Two rungs: `flat_a0` (α=0, spread-identical,
+sharpness restored by the random phase) and `sharp_a05` (α=+0.5 tilt,
+a deliberately over-sharp control).
+
+Texture check (the soft surrogate's tell was curvature ≈ 0.0002–0.0003,
+~100× below real; lowfrac = fraction of power at periods > 10 yr):
+
+| series | ρ₁ | curvature | lowfrac(>10yr) |
+|---|---|---|---|
+| real pdo (1880–2022) | 0.9668 | 0.0386 | 0.406 |
+| soft surrogate | 0.9946 | 0.0003 | 0.336 |
+| **flat_a0** | **0.9666** | **0.0401** | **0.412** |
+| sharp_a05 | 0.8490 | 0.2681 | 0.063 |
+
+`flat_a0` matches real PDO on every statistic that matters (ρ₁, ρ₂,
+curvature, spectral spread) with zero locking by construction.
+
+**Fits, shipped PDO design (pdo manifold, `lt.exe.p` windings, σ=10):**
+
+| target | r (n≤3) | dCC (n≤3) | r (n≤6) | dCC (n≤6) |
+|---|---|---|---|---|
+| real pdo | 0.814 | 0.254 | 0.877 | — |
+| soft surrogate | 0.865 | 0.256 | 0.904 | — |
+| **flat_a0** | **0.820** | **0.288** | 0.871 | 0.379 |
+| **sharp_a05** | **0.636** | 0.299 | 0.750 | 0.399 |
+
+Exactly as the ladder predicted: the smoothness gift is removed — r
+collapses from the surrogate's inflated 0.865 to 0.820, **statistic-for-
+statistic indistinguishable from the real capture's 0.814**. A random-
+phase spectrum-exact series fits the manifold as well as real PDO
+does. In-sample r: dead as evidence, now on a sharp, realistic-texture
+target too. (dCC note: the fit tracks flat_a0's monthly wiggles *better*
+than real's — 0.288 vs 0.254 — micro-texture correlation is also partly
+texture-fitting, not locking.) sharp_a05 at 0.636 shows the opposite
+failure mode: over-sharp targets fall below the real-capture level.
+
+**Winding ridge analysis** (production-manifold forcing extended to
+2026, AR1 floor per rung, σ=15 yr, dm=0.004): `flat_a0` yields 2
+candidates, best 0.444 (2.57 bits) but **continuity 0.56 → FAIL**, and
+at the claimed position band-bits 1.19 / cont 0.63 — versus real PDO's
+2.8 bits / **cont 1.00 PASS** at 0.448 on the same grid. `sharp_a05`
+yields **no candidates at all** (band sits 2.7 bits *under* floor,
+cont 0.00). The ridge instrument answers NO on both new fakes even
+though one of them reproduces the real index's r perfectly.
+
+Board: [`figures/sharp2025_board.png`](figures/sharp2025_board.png)
+(4 obs/fit rows + ridge band spectra); JSON
+[`figures/sharp2025_results.json`](figures/sharp2025_results.json);
+series files [`sharp2025_flat_a0.dat`](sharp2025_flat_a0.dat),
+[`sharp2025_sharp_a05.dat`](sharp2025_sharp_a05.dat).
+
