@@ -80,7 +80,10 @@ dominating its spectrum by ~3x). See `docs/METHODS_BLURB.md`.
                            exact identity check and AMO-manifold census),
                            QBO_FORMULATION.md (the wavenumber=0 case:
                            draconic-alias forcing, moving gauge for a
-                           descending phase, dated beat-node forecasts)
+                           descending phase, dated beat-node forecasts),
+                           CHANDLER_K0.md (exploratory: Chandler wobble as
+                           the k=0 solid-body sibling -- rectified-draconic
+                           alias 432.6 d, lock-in phase-coherence test)
 
 Indices: nino4, nino34, pdo, amo, tna, nao, iode, emi, npi, pna, noi, tpi
 (SST/pressure anomaly indices), baltic + darwin1880 (PSMSL sea-level
