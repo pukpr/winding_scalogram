@@ -230,3 +230,48 @@ forecast r = 0.825 where a plain sine gives 0.625 and pure-random-phase
 nulls 0.02±0.34); (iii) the 0.68 comb-sideband ridge specific to qbo30
 against its flat rung. Per campaign rule, bare capture r is never offered
 as evidence anywhere, QBO included.
+
+## Chandler wobble — the k=0 solid-body sibling (exploratory)
+
+Evidence board: [`figures/chandler_lockin.png`](figures/chandler_lockin.png)
+(scripts `../chandler_k0.py`, `../chandler_clean.py`, `../chandler_rect.py`,
+`../chandler_lockin.py`; results `../chandler_*_ridges.json`,
+`../chandler_lockin.json`; full analysis in `docs/CHANDLER_K0.md`).
+
+The same draconic phase walk that names QBO's 2.369-yr line names the
+Chandler wobble under rectification: the annual clock samples the
+rectified nodal torque 2N = 13.60611 d (a real `lt.exe.p` constituent,
+amp −0.019) at frac(2·365.2463/27.2122) = 0.84429 c/yr = **432.61 d**.
+Against the weighted-statistics anchor 433.0 ± 0.5 d: **0.78σ**, and
+three independent estimators straddle the center (alias 432.61;
+lock-in mean line 432.6–433.2 window-scan; modern eopc04 Hann FFT
+433.59 = 1.2σ; eopc01 435.4 is astrolabe-era contaminated). The
+prediction is robust across the whole plausible year-length window
+(365.2422–365.259 → 432.76–432.15 d); exact 433.0 would need yl =
+365.2360, outside it — the residual is comb-sideband structure, not
+alias error.
+
+Two results, one instrument lesson. The winding tooth battery — draconic
+manifold × four comb modes, monthly + daily grids, annual wobble and
+semiannual nuisance removed first (16.6 mas vs 28 mas CW; the cleaning
+is load-bearing) — comes back **NULL at the 0.844 tooth** (best +0.9
+bits / cont 0.50 vs the 2.0 / 0.70 gate). That is the Fyfe computed-order
+tracking lesson: an engine-order line is tracked against shaft PHASE, not
+a reconstructed torque waveform, and a once-sampled alias is the wrong
+shape for waveform-projection teeth. The native instrument answers
+instead: sliding 8-yr **lock-in demodulation** at the carrier (estimator
+calibrated on synthetics). Space-age 16-yr frame slips **alternate sign**
+(−0.0013, +0.0010, −0.0043, +0.0137 c/yr) and sum to **+0.00007** over 58
+satellite-era years — phase wandering AROUND the carrier, where a free
+433.0–433.6-d oscillator must drift MONOTONICALLY (−0.0009 to −0.0019)
+— while the amplitude decays ~5× (0.15″ → 0.03″, the documented
+1999–2016 CW decay) with the phase held: forced-phase / transient-
+amplitude cyclostationarity. Time-domain summary: one carrier cosine,
+phase anchored in a single 2000 window, nothing else fitted: r = 0.95
+(1962–95), 0.85 (1962–2025) on the nuisance-cleaned pole x.
+
+Status: exploratory — not counted toward the 18-index marquee, not
+gated; caveats (offset-vs-mechanism indistinguishability, astrolabe-era
+noise, stationarity-not-Bayes-factor) declared in `docs/CHANDLER_K0.md`
+§5. For solid-body/geodetic indices, carrier coherence is the evidence
+template; the tooth test is for waveform projection.

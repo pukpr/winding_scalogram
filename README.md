@@ -83,7 +83,10 @@ dominating its spectrum by ~3x). See `docs/METHODS_BLURB.md`.
                            descending phase, dated beat-node forecasts),
                            CHANDLER_K0.md (exploratory: Chandler wobble as
                            the k=0 solid-body sibling -- rectified-draconic
-                           alias 432.6 d, lock-in phase-coherence test)
+                           alias 432.6 d passes the weighted 433.0+/-0.5 d
+                           anchor at 0.78 sigma; lock-in phase-coherence
+                           test: space-age slips alternate sign, net
+                           +0.00007 c/yr over 58 satellite-era years)
 
 Indices: nino4, nino34, pdo, amo, tna, nao, iode, emi, npi, pna, noi, tpi
 (SST/pressure anomaly indices), baltic + darwin1880 (PSMSL sea-level
