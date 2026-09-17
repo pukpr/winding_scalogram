@@ -233,10 +233,12 @@ as evidence anywhere, QBO included.
 
 ## Chandler wobble — the k=0 solid-body sibling (exploratory)
 
-Evidence board: [`figures/chandler_lockin.png`](figures/chandler_lockin.png)
+Evidence boards: [`figures/chandler_lockin.png`](figures/chandler_lockin.png)
+and [`figures/chandler_orders.png`](figures/chandler_orders.png)
 (scripts `../chandler_k0.py`, `../chandler_clean.py`, `../chandler_rect.py`,
-`../chandler_lockin.py`; results `../chandler_*_ridges.json`,
-`../chandler_lockin.json`; full analysis in `docs/CHANDLER_K0.md`).
+`../chandler_lockin.py`, `../chandler_orders.py`; results
+`../chandler_*_ridges.json`, `../chandler_lockin.json`,
+`../chandler_orders.json`; full analysis in `docs/CHANDLER_K0.md`).
 
 The same draconic phase walk that names QBO's 2.369-yr line names the
 Chandler wobble under rectification: the annual clock samples the
@@ -269,6 +271,23 @@ satellite-era years — phase wandering AROUND the carrier, where a free
 amplitude cyclostationarity. Time-domain summary: one carrier cosine,
 phase anchored in a single 2000 window, nothing else fitted: r = 0.95
 (1962–95), 0.85 (1962–2025) on the nuisance-cleaned pole x.
+
+Fyfe ORDER BATTERY (`chandler_orders.py`, orders board): scanning the whole
+demodulation ladder f_j = frac(j·0.844285), 16-yr windows (min ladder step
+0.0657 vs Rayleigh 0.0625). (i) HARMONIC-LADDER TEST: no order 2–12 clears
+its pure-RP clone 95th percentile — the solid Earth selects the carrier and
+rejects the rectified-sine staircase (positive control: injected order-5
+line reads conc 0.982). (ii) COMPANION TEST, the sharp falsifier: generic
+draconic forcing predicts the unrectified 865.2-d line (QBO's tooth) in the
+pole as well; full-record Hann spectrum gives CW band 122x background /
+81% power vs the 865-d band's 2.2x background / 0.017% — a 4700:1 contrast
+confirming the calendar-pole coupling is RECTIFIED, while QBO (signed
+declination) reads 0.422. (iii) POLARIZATION: the line occupies one
+circular slot 180:1 (sense matches the annual wobble's in the z = x1+iy
+convention; label pending an ITRS-frame sign check against the literature
+retrograde claim). Net: single rectified-2N carrier, phase-stationary
+(§3 slips), amplitude transient on top — both rival model classes
+eliminated by name.
 
 Status: exploratory — not counted toward the 18-index marquee, not
 gated; caveats (offset-vs-mechanism indistinguishability, astrolabe-era

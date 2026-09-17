@@ -1,8 +1,10 @@
 # Chandler wobble: the k=0 solid-body sibling of the QBO alias
 
 Exploratory excursion (scripts `chandler_k0.py`, `chandler_clean.py`,
-`chandler_rect.py`, `chandler_lockin.py`; JSON results at repo root;
-board `supplemental_2026_09/figures/chandler_lockin.png`). Grounding:
+`chandler_rect.py`, `chandler_lockin.py`, `chandler_orders.py`; JSON
+results at repo root; boards
+`supplemental_2026_09/figures/chandler_lockin.png`,
+`supplemental_2026_09/figures/chandler_orders.png`). Grounding:
 geoenergymath.com 2026-09-17 "Forced aliasing model of the Chandler
 wobble" (f = 365.242 d annual inertia comb, q = 27.2122 d draconic
 torque, two-pole halving of the 865.5-d alias). PI anchor (weighted
@@ -157,6 +159,51 @@ fixed astronomical carrier does not slide. Chirp scan (12-yr windows, 1846–202
 (432.5–432.9 d at nodal phases 0.0–0.2 / 0.8–1.0 vs 429.6–430.3 d at
 0.3–0.7) — but window resolution σ_f ≈ 0.01 c/yr means the 3-d split is
 ~1σ per cell; exploratory, not a claim.
+
+## 3.5 Fyfe order analysis: is the carrier a single line or a ladder? (`chandler_orders.py`)
+
+The full computed-order-tracking step: if the pole response is driven by a
+rectified 2N torque sampled on the annual shaft, the demodulation ladder
+f_j = frac(j·0.844285) is what an engine diagnostic would scan — orders
+1–12, each with its own sliding-window lock-in (16-yr windows; the
+ladder's minimum spacing is frac(6·f₁) = 0.0657 c/yr and Rayleigh 1/16 =
+0.0625 sits just under it, so neighboring orders are marginally resolved
+— an 8-yr window would leak them into each other). Three
+falsifiable readings:
+
+1. **Harmonic-ladder test.** A rectified sinusoid carries the
+   3/(4j²−1) amplitude staircase with phase-locked orders. Observed: the
+   ladder is flat-to-dead after order 1 (j=2 at 0.13, j=5–12 at
+   0.02–0.23 of the carrier with **zero** orders above their pure-RP
+   clone 95th percentile; instrument positive control: a line injected at
+   order 5 reads conc 0.982). The solid Earth is NOT running the torque's
+   harmonic staircase — it selects the carrier and rejects the ladder.
+   That is consistent with a high-Q response to one spectral line, and it
+   is the Fyfe-correct null: order-tracking on a shaft with only one
+   significant order reduces to the §3 single-carrier test.
+2. **Polarization test.** Demodulating x + iy at ±0.844285 c/yr: the CW
+   line occupies one circular slot at 180:1 (0.1268 vs 0.0007 arcsec);
+   the known-prograde annual wobble occupies the **same** slot at full
+   power in the raw series (0.090 vs 0.005). So the CW orbit sense
+   matches the annual wobble's sense in this convention — reported as
+   measured, label pending a careful ITRS-frame sign check, since
+   literature CW is retrograde and a slot-name error is possible.
+3. **Companion-line test (the sharp falsifier, and it holds).** Generic
+   draconic forcing predicts the unrectified order-1 alias — the QBO
+   tooth at 865.2 d (0.422 c/yr) — should appear in the pole too.
+   Full-record Hann spectrum of cleaned pole-x: CW band 122× background
+   (81% of record power), 865-d band **2.2× background (0.017% power)** —
+   a 4700:1 contrast. The calendar→pole coupling really is rectified
+   (|declination| twice per node cycle), which is exactly the mechanism
+   §1 claimed for the halving. QBO sees 0.422 because the stratosphere
+   reads signed declination; the solid Earth sees 0.844 because torque
+   magnitude is what bends the pole.
+
+Net: the Fyfe battery narrows the model class correctly. Not a generic
+draconic line pair → eliminated (companion test). Not a harmonic ladder
+response → eliminated (orders 2–12 null). What remains is exactly the §1
+picture: the rectified 2N carrier, one line, phase-stationary in the
+carrier frame (§3), amplitude transient riding on top.
 
 ## 4. Position in the category taxonomy
 
